@@ -1,0 +1,3 @@
+# pingerface
+
+License: AGPLv3

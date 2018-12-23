@@ -1,0 +1,24 @@
+{
+  "fitbit": {
+    "appUUID": "97789d46-4786-4fb6-ad90-8def371529b3",
+    "appType": "clockface",
+    "appDisplayName": "PingerFace",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "",
+    "requestedPermissions": [
+      "run_background",
+      "access_activity"
+    ],
+    "buildTargets": [
+      "higgs"
+    ],
+    "i18n": {
+      "en": {
+        "name": "PingerFace"
+      }
+    }
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~2.0.0"
+  }
+}
