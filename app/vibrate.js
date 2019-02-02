@@ -8,7 +8,27 @@ const minute = 60*second;
 
 const bzzFrequency = 10*minute;
 const bzzOffset = 5*minute;
-const bzzLength = 6*second;
+
+function continueBuzz(buzz) {
+    if (buzz.pattern.length == buzz.i) {
+        vibration.stop();
+        return;
+    }
+    if (buzz.pattern[buzz.i].on) {
+        vibration.start("alert");
+    } else {
+        vibration.stop();
+    }
+    setTimeout(function() {
+        continueBuzz(buzz);
+    }, buzz.pattern[buzz.i].len);
+    buzz.i++;
+}
+
+function startBuzz(pattern) {
+    var buzz = {pattern, i: 0};
+    continueBuzz(buzz);
+}
 
 function divCeil(a, b) {
   return Math.ceil(a/b)*b;
@@ -19,10 +39,12 @@ function nextBzzTime(now) {
 }
 
 function bzz() {
-  vibration.start("alert");
-  setTimeout(function() {
-    vibration.stop();
-  }, bzzLength);
+    let pattern = [];
+    for (let i = 0; i < 13; i++) {
+        pattern.push({on: true, len: Math.floor(Math.random()*6)*100+100});
+        pattern.push({len: 100});
+    }
+    startBuzz(pattern);
 }
 
 function startBzz() {
