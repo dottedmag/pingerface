@@ -38,11 +38,22 @@ function nextBzzTime(now) {
   return divCeil(now - bzzOffset, bzzFrequency) + bzzOffset;
 }
 
+function randN(n) {
+    return (Math.random()*n)|0;
+}
+
+function buzzLength() {
+    return randN(3)*100+50;
+}
+
 function bzz() {
     let pattern = [];
-    for (let i = 0; i < 13; i++) {
-        pattern.push({on: true, len: Math.floor(Math.random()*6)*100+100});
+    let patternLength = 0;
+    while (patternLength < 10000) {
+        let b = buzzLength();
+        pattern.push({on: true, len: b});
         pattern.push({len: 100});
+        patternLength += b + 100;
     }
     startBuzz(pattern);
 }
