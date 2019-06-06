@@ -1,4 +1,98 @@
-<svg class="background">
+<svg class="background" id="background">
+  <defs>
+    <!-- id - referencing from <use>
+         href - fetching element from Fitbit library
+         pointer-events - tile itself should not react to touch
+         system-events - to enable scroll reaction
+         display - otherwise this element will be rendered at x=0 y=0 -->
+    <symbol id="header-tile"
+            href="#tile-list-item"
+            pointer-events="none"
+            system-events="all"
+            display="none">
+      <!-- click target -->
+      <rect id="background"
+            pointer-events="visible"
+            x="0"
+            y="0"
+            width="100%"
+            height="100%"/>
+      <text class="header-tile-text"
+            id="text"
+            text-length="20"/>
+    </symbol>
+
+    <symbol id="again-tile"
+            href="#tile-list-item"
+            pointer-events="none"
+            system-events="all"
+            display="none">
+      <use id="button" href="#square-button-icon" fill="green">
+        <set href="#text" attributeName="text-length" to="20"/>
+        <set href="#image" attributeName="href" to="btn_combo_reset_p.png"/>
+      </use>
+    </symbol>
+
+    <symbol id="snooze-tile"
+            href="#tile-list-item"
+            pointer-events="none"
+            system-events="all"
+            display="none">
+      <use id="button" href="#square-button-negative">
+        <set href="#text" attributeName="text-buffer" to="Snooze"/>
+      </use>
+    </symbol>
+
+    <symbol id="activity-tile"
+            href="#tile-list-item"
+            pointer-events="none"
+            system-events="all"
+            display="none">
+      <use id="button" href="#square-button-neutral">
+        <set href="#text" attributeName="text-length" to="20"/>
+      </use>
+    </symbol>
+  </defs>
+
   <text id="date" />
   <text id="time" />
+
+  <rect id="clicker" pointer-events="visible"/>
+
+  <svg id="activity-screen">
+    <!-- fill the screen -->
+    <rect id="activity-background" pointer-events="visible"/>
+
+    <use id="activity-list" href="#tile-list">
+      <var id="virtual" value="1"/>
+      <!-- click should activate item, not to scroll it -->
+      <var id="peek-enabled" value="0" />
+    
+      <use id="header-tile-pool" href="#tile-list-pool">
+        <use id="header-tile-pool[0]" href="#header-tile" class="header-tile" />
+      </use>
+      <use id="snooze-tile-pool" href="#tile-list-pool">
+        <use id="snooze-tile-pool[0]" href="#snooze-tile" class="activity-tile" />
+      </use>
+      <use id="again-tile-pool" href="#tile-list-pool">
+        <use id="again-tile-pool[0]" href="#again-tile" class="activity-tile" />
+      </use>
+      <use id="activity-tile-pool" href="#tile-list-pool">
+        <use id="activity-tile-pool[0]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[1]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[2]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[3]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[4]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[5]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[6]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[7]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[8]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[9]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[10]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[11]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[12]" href="#activity-tile" class="activity-tile" />
+        <use id="activity-tile-pool[13]" href="#activity-tile" class="activity-tile" />
+      </use>
+    </use>
+  </svg>
 </svg>

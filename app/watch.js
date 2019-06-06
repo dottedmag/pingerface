@@ -1,5 +1,6 @@
 import clock from "clock";
 import document from "document";
+import asap from "fitbit-asap/app";
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 

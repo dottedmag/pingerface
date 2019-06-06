@@ -2,9 +2,10 @@
   font-size: 50;
   font-family: "Tungsten";
   x: 5;
-  y: 40;
+  y: 100%-5;
   text-length: 32;
   fill: #a0a0a0;
+  background-color: red;
 }
 
 #time {
@@ -15,4 +16,50 @@
   x: 50%;
   y: 50%+40;
   fill: white;
+  backround-color: red;
 }
+
+#clicker {
+    opacity: 0;
+    x: 0;
+    y: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#activity-screen {
+    display: none;
+}
+
+#activity-background {
+    pointer-events: "visible";
+    x: 0;
+    y: 0;
+    width: "100%";
+    height: "100%";
+    fill: "black";
+}
+
+.header-tile {
+    height: 40;
+}
+
+.header-tile-text {
+    y: 100%-5;
+    font-size: 40;
+    font-family: "System-Regular";
+    fill: white;
+}
+
+.activity-tile {
+    height: 72;
+}
+/*
+.activity-tile-background {
+    x: 0;
+    y: 0;
+    width: 100%;
+    height: 100%;
+    fill: black;
+}
+*/
