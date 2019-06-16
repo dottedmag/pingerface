@@ -1,13 +1,11 @@
 /* global setTimeout setInterval clearInterval */
 import { vibrate } from './vibrate';
+import * as units from './units';
 
 let intervalHandle;
 
-const second = 1000;
-const minute = 60*second;
-
-const bzzFrequency = 10*minute;
-const bzzOffset = 5*minute;
+const bzzFrequency = 10*units.MIN;
+const bzzOffset = 5*units.MIN;
 
 function divCeil(a, b) {
   return Math.ceil(a/b)*b;
@@ -18,7 +16,7 @@ function nextBzzTime(now) {
 }
 
 function vibrate(buzzer) {
-    setTimeout(()=>buzzer.stop(), 10*second);
+    setTimeout(()=>buzzer.stop(), 10*units.SEC);
     buzzer.start();
 }
 

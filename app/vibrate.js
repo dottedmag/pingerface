@@ -1,9 +1,9 @@
 /* global setInterval, clearInterval */
 import { vibration } from "haptics";
 import { display } from "display";
+import * as units from './units';
 
-const SEC = 1000;
-const REENABLE = SEC/2;
+const REENABLE = units.SEC/2;
 
 export function buzzer() {
     let intervalHandle = null;
