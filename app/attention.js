@@ -5,7 +5,7 @@ import * as units from './units';
 
 const REENABLE = units.SEC/2;
 
-export function buzzer() {
+export function grabber() {
     let intervalHandle = null;
     return {
         start: ()=>{

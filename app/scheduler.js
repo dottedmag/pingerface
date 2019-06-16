@@ -15,26 +15,26 @@ function nextBzzTime(now) {
   return divCeil(now - bzzOffset, bzzFrequency) + bzzOffset;
 }
 
-function vibrate(buzzer) {
-    setTimeout(()=>buzzer.stop(), 10*units.SEC);
-    buzzer.start();
+function vibrate(attentionGrabber) {
+    setTimeout(()=>attentionGrabber.stop(), 10*units.SEC);
+    attentionGrabber.start();
 }
 
-function startBzz(buzzer) {
-  intervalHandle = setInterval(()=>vibrate(buzzer), bzzFrequency);
-  vibrate(buzzer);
+function startBzz(attentionGrabber) {
+  intervalHandle = setInterval(()=>vibrate(attentionGrabber), bzzFrequency);
+  vibrate(attentionGrabber);
 }
 
-export function start(buzzer) {
+export function start(attentionGrabber) {
   if (intervalHandle)
     return;
   let now = Math.floor(Date.now());
   let next = nextBzzTime(now);
-  intervalHandle = setTimeout(()=>startBzz(buzzer), next-now);
+  intervalHandle = setTimeout(()=>startBzz(attentionGrabber), next-now);
 }
 
-export function stop(buzzer) {
-  buzzer.stop();
+export function stop(attentionGrabber) {
+  attentionGrabber.stop();
   if (!intervalHandle)
     return;
   clearInterval(intervalHandle);
