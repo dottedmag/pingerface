@@ -16,26 +16,29 @@ function nextWakeupTime(now) {
   return divCeil(now - wakeupOffset, wakeupFrequency) + wakeupOffset;
 }
 
-function vibrate(attentionGrabber) {
-    setTimeout(()=>attentionGrabber.stop(), 10*units.SEC);
+function vibrate(attentionGrabber, acknowledger) {
+    acknowledger.request(()=>{
+        attentionGrabber.stop();
+    });
     attentionGrabber.start();
 }
 
-function startWakeup(attentionGrabber) {
-  intervalHandle = setInterval(()=>vibrate(attentionGrabber), wakeupFrequency);
-  vibrate(attentionGrabber);
+function startWakeup(attentionGrabber, acknowledger) {
+  intervalHandle = setInterval(()=>vibrate(attentionGrabber, acknowledger), wakeupFrequency);
+  vibrate(attentionGrabber, acknowledger);
 }
 
-export function start(attentionGrabber) {
+export function start(attentionGrabber, acknowledger) {
   if (intervalHandle)
     return;
   let now = Math.floor(Date.now());
   let next = nextWakeupTime(now);
-  intervalHandle = setTimeout(()=>startWakeup(attentionGrabber), next-now);
+  intervalHandle = setTimeout(()=>startWakeup(attentionGrabber, acknowledger), next-now);
 }
 
-export function stop(attentionGrabber) {
+export function stop(attentionGrabber, acknowledger) {
   attentionGrabber.stop();
+  acknowledger.dismiss();
   if (!intervalHandle)
     return;
   clearInterval(intervalHandle);

@@ -9,6 +9,7 @@ function zeroPad(i) {
   return i;
 }
 
+const clickerEl = document.getElementById("clicker");
 const timeEl = document.getElementById("time");
 const dateEl = document.getElementById("date");
 
@@ -26,7 +27,26 @@ function drawClock(date) {
   dateEl.text = `${day} ${month}`;
 }
 
-export function startWatch() {
+export function start() {
   clock.granularity = "minutes";
   clock.ontick = onTick;
+}
+
+export function acknowledger() {
+    let fn = null;
+    function done() {
+        clickerEl.style.visibility = "hidden";
+        timeEl.style.fill = "white";
+        if (fn)
+            fn();
+    }
+    clickerEl.onclick = done;
+    return {
+        request: (callback)=>{
+            fn = callback;
+            timeEl.style.fill = "red";
+            clickerEl.style.visibility = "visible";
+        },
+        dismiss: done,
+    };
 }

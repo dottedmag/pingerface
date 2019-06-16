@@ -1,4 +1,5 @@
-<svg class="background">
-  <text id="date" />
-  <text id="time" />
+<svg>
+  <rect id="clicker" pointer-events="visible"/>
+  <text id="date" pointer-events="none"/>
+  <text id="time" pointer-events="none"/>
 </svg>
