@@ -1,14 +1,6 @@
-/* global setTimeout setInterval clearInterval */
+/* global setTimeout */
 import { vibration } from "haptics";
 import { display } from "display";
-
-let intervalHandle;
-
-const second = 1000;
-const minute = 60*second;
-
-const bzzFrequency = 10*minute;
-const bzzOffset = 5*minute;
 
 function continueBuzz(buzz) {
     if (buzz.pattern.length == buzz.i) {
@@ -32,14 +24,6 @@ function startBuzz(pattern) {
     continueBuzz(buzz);
 }
 
-function divCeil(a, b) {
-  return Math.ceil(a/b)*b;
-}
-
-function nextBzzTime(now) {
-  return divCeil(now - bzzOffset, bzzFrequency) + bzzOffset;
-}
-
 function randN(n) {
     return (Math.random()*n)|0;
 }
@@ -48,7 +32,7 @@ function buzzLength() {
     return randN(3)*100+50;
 }
 
-function bzz() {
+export function vibrate() {
     let pattern = [];
     let patternLength = 0;
     while (patternLength < 10000) {
@@ -58,24 +42,4 @@ function bzz() {
         patternLength += b + 100;
     }
     startBuzz(pattern);
-}
-
-function startBzz() {
-  intervalHandle = setInterval(bzz, bzzFrequency);
-  bzz();
-}
-
-export function start() {
-  if (intervalHandle)
-    return;
-  let now = Math.floor(Date.now());
-  let next = nextBzzTime(now);
-  intervalHandle = setTimeout(startBzz, next-now);
-}
-
-export function stop() {
-  if (!intervalHandle)
-    return;
-  clearInterval(intervalHandle);
-  intervalHandle = undefined;
 }

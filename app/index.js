@@ -1,6 +1,6 @@
 import { me } from "appbit";
 import { startWatch } from "./watch";
-import * as vibrate from "./vibrate";
+import * as scheduler from "./scheduler";
 import { BodyPresenceSensor } from "body-presence";
 
 me.appTimeoutEnabled = false;
@@ -9,9 +9,9 @@ let bps = new BodyPresenceSensor();
 
 function onReading() {
     if (bps.present) {
-        vibrate.start();
+        scheduler.start();
     } else {
-        vibrate.stop();
+        scheduler.stop();
     }
 }
 bps.onreading = onReading;
