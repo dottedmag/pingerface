@@ -1,5 +1,6 @@
 import { BodyPresenceSensor } from "body-presence";
 import { vibration } from "haptics";
+import { display } from "display";
 
 let intervalHandle;
 
@@ -14,6 +15,7 @@ function continueBuzz(buzz) {
         vibration.stop();
         return;
     }
+    display.poke();
     if (buzz.pattern[buzz.i].on) {
         vibration.start("alert");
     } else {
