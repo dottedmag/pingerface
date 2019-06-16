@@ -1,3 +1,4 @@
+/* global setTimeout setInterval clearInterval */
 import { BodyPresenceSensor } from "body-presence";
 import { vibration } from "haptics";
 import { display } from "display";
