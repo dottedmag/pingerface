@@ -1,5 +1,4 @@
 /* global setTimeout setInterval clearInterval */
-import { BodyPresenceSensor } from "body-presence";
 import { vibration } from "haptics";
 import { display } from "display";
 
@@ -66,7 +65,7 @@ function startBzz() {
   bzz();
 }
 
-function start() {
+export function start() {
   if (intervalHandle)
     return;
   let now = Math.floor(Date.now());
@@ -74,23 +73,9 @@ function start() {
   intervalHandle = setTimeout(startBzz, next-now);
 }
 
-function stop() {
+export function stop() {
   if (!intervalHandle)
     return;
   clearInterval(intervalHandle);
   intervalHandle = undefined;
-}
-
-let bps = new BodyPresenceSensor();
-
-function onReading() {
-  if (bps.present)
-    start();
-  else
-    stop();
-}
-
-export function startVibrate() {
-  bps.onreading = onReading;
-  bps.start();
 }
