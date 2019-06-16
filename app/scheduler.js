@@ -17,20 +17,26 @@ function nextBzzTime(now) {
   return divCeil(now - bzzOffset, bzzFrequency) + bzzOffset;
 }
 
-function startBzz() {
-  intervalHandle = setInterval(vibrate, bzzFrequency);
-  vibrate();
+function vibrate(buzzer) {
+    setTimeout(()=>buzzer.stop(), 10*second);
+    buzzer.start();
 }
 
-export function start() {
+function startBzz(buzzer) {
+  intervalHandle = setInterval(()=>vibrate(buzzer), bzzFrequency);
+  vibrate(buzzer);
+}
+
+export function start(buzzer) {
   if (intervalHandle)
     return;
   let now = Math.floor(Date.now());
   let next = nextBzzTime(now);
-  intervalHandle = setTimeout(startBzz, next-now);
+  intervalHandle = setTimeout(()=>startBzz(buzzer), next-now);
 }
 
-export function stop() {
+export function stop(buzzer) {
+  buzzer.stop();
   if (!intervalHandle)
     return;
   clearInterval(intervalHandle);
