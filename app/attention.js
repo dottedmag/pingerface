@@ -3,7 +3,7 @@ import { vibration } from "haptics";
 import { display } from "display";
 import * as units from './units';
 
-const REENABLE = units.SEC/2;
+const RESTART = units.SEC/2;
 
 export function grabber() {
     let intervalHandle = null;
@@ -12,7 +12,7 @@ export function grabber() {
             intervalHandle = setInterval(()=>{
                 vibration.start("nudge-max");
                 display.poke();
-            }, REENABLE);
+            }, RESTART);
         },
         stop: ()=>{
             vibration.stop();
