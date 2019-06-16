@@ -1,18 +1,19 @@
 /* global setTimeout setInterval clearInterval */
 import { vibrate } from './vibrate';
 import * as units from './units';
+import * as config from './config';
 
 let intervalHandle;
 
-const bzzFrequency = 10*units.MIN;
-const bzzOffset = 5*units.MIN;
+const wakeupFrequency = config.wakeupFrequency;
+const wakeupOffset = wakeupFrequency/2;
 
 function divCeil(a, b) {
   return Math.ceil(a/b)*b;
 }
 
-function nextBzzTime(now) {
-  return divCeil(now - bzzOffset, bzzFrequency) + bzzOffset;
+function nextWakeupTime(now) {
+  return divCeil(now - wakeupOffset, wakeupFrequency) + wakeupOffset;
 }
 
 function vibrate(attentionGrabber) {
@@ -20,8 +21,8 @@ function vibrate(attentionGrabber) {
     attentionGrabber.start();
 }
 
-function startBzz(attentionGrabber) {
-  intervalHandle = setInterval(()=>vibrate(attentionGrabber), bzzFrequency);
+function startWakeup(attentionGrabber) {
+  intervalHandle = setInterval(()=>vibrate(attentionGrabber), wakeupFrequency);
   vibrate(attentionGrabber);
 }
 
@@ -29,8 +30,8 @@ export function start(attentionGrabber) {
   if (intervalHandle)
     return;
   let now = Math.floor(Date.now());
-  let next = nextBzzTime(now);
-  intervalHandle = setTimeout(()=>startBzz(attentionGrabber), next-now);
+  let next = nextWakeupTime(now);
+  intervalHandle = setTimeout(()=>startWakeup(attentionGrabber), next-now);
 }
 
 export function stop(attentionGrabber) {

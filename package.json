@@ -26,6 +26,7 @@
     "fitbit-asap": "^1.2.1"
   },
   "scripts": {
-    "build": "fitbit-build"
+    "build": "cp config/debug.js app/config.js; fitbit-build; rm -f app/config.js",
+    "build-release": "cp config/release.js app/config.js; fitbit-build; rm -f app/config.js"
   }
 }
