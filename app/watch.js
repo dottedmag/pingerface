@@ -4,9 +4,9 @@ import document from "document";
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 function zeroPad(i) {
-  if (i < 10)
-    return "0" + i;
-  return i;
+    if (i < 10)
+        return "0" + i;
+    return i;
 }
 
 const clickerEl = document.getElementById("clicker");
@@ -14,22 +14,22 @@ const timeEl = document.getElementById("time");
 const dateEl = document.getElementById("date");
 
 function onTick(evt) {
-  drawClock(evt.date);
+    drawClock(evt.date);
 }
 
 function drawClock(date) {
-  let today = date;
-  let hours = zeroPad(today.getHours());
-  let mins = zeroPad(today.getMinutes());
-  let day = zeroPad(today.getDate());
-  let month = months[today.getMonth()];
-  timeEl.text = `${hours}:${mins}`;
-  dateEl.text = `${day} ${month}`;
+    let today = date;
+    let hours = zeroPad(today.getHours());
+    let mins = zeroPad(today.getMinutes());
+    let day = zeroPad(today.getDate());
+    let month = months[today.getMonth()];
+    timeEl.text = `${hours}:${mins}`;
+    dateEl.text = `${day} ${month}`;
 }
 
 export function start() {
-  clock.granularity = "minutes";
-  clock.ontick = onTick;
+    clock.granularity = "minutes";
+    clock.ontick = onTick;
 }
 
 export function acknowledger() {
