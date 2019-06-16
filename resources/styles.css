@@ -10,7 +10,7 @@
     font-size: 50;
     font-family: "Tungsten";
     x: 5;
-    y: 40;
+    y: 100%-5;
     text-length: 32;
     fill: #a0a0a0;
 }
