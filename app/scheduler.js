@@ -3,8 +3,6 @@ import { vibrate } from './vibrate';
 import * as units from './units';
 import * as config from './config';
 
-let intervalHandle;
-
 const wakeupFrequency = config.wakeupFrequency;
 const wakeupOffset = wakeupFrequency/2;
 
@@ -16,31 +14,27 @@ function nextWakeupTime(now) {
     return divCeil(now - wakeupOffset, wakeupFrequency) + wakeupOffset;
 }
 
-function vibrate(attentionGrabber, acknowledger) {
-    acknowledger.request(()=>{
-        attentionGrabber.stop();
-    });
-    attentionGrabber.start();
-}
+export class Scheduler {
+    constructor(cb) {
+        this.cb = cb;
+        this.interval = null;
+    }
 
-function startWakeup(attentionGrabber, acknowledger) {
-    intervalHandle = setInterval(()=>vibrate(attentionGrabber, acknowledger), wakeupFrequency);
-    vibrate(attentionGrabber, acknowledger);
-}
+    start() {
+        if (this.interval == null) {
+            let now = Math.floor(Date.now());
+            let next = nextWakeupTime(now);
+            this.interval = setTimeout(()=>{
+                this.cb();
+                setInterval(()=>this.cb(), wakeupFrequency);
+            }, next-now);
+        }
+    }
 
-export function start(attentionGrabber, acknowledger) {
-    if (intervalHandle)
-        return;
-    let now = Math.floor(Date.now());
-    let next = nextWakeupTime(now);
-    intervalHandle = setTimeout(()=>startWakeup(attentionGrabber, acknowledger), next-now);
-}
-
-export function stop(attentionGrabber, acknowledger) {
-    attentionGrabber.stop();
-    acknowledger.dismiss();
-    if (!intervalHandle)
-        return;
-    clearInterval(intervalHandle);
-    intervalHandle = undefined;
+    stop() {
+        if (this.interval != null) {
+            clearInterval(this.interval);
+            this.interval = null;
+        }
+    }
 }

@@ -5,18 +5,25 @@ import * as units from './units';
 
 const RESTART = units.SEC/2;
 
-export function grabber() {
-    let intervalHandle = null;
-    return {
-        start: ()=>{
-            intervalHandle = setInterval(()=>{
+export class Attention {
+    constructor() {
+        this.interval = null;
+    }
+
+    grab() {
+        if (this.interval==null) {
+            this.interval = setInterval(()=>{
                 vibration.start("nudge-max");
                 display.poke();
             }, RESTART);
-        },
-        stop: ()=>{
+        }
+    }
+
+    release() {
+        if (this.interval!=null) {
             vibration.stop();
-            clearInterval(intervalHandle);
-        },
-    };
+            clearInterval(this.interval);
+            this.interval=null;
+        }
+    }
 }

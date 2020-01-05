@@ -1,5 +1,18 @@
 <svg>
-  <rect id="clicker" pointer-events="visible"/>
   <text id="date" pointer-events="none"/>
   <text id="time" pointer-events="none"/>
+
+  <rect id="underlay" pointer-events="none"/>
+  <text id="question" pointer-events="none"/>
+  <text id="date-small" pointer-events="none"/>
+  <text id="time-small" pointer-events="none"/>
+
+  <text id="answer-0" pointer-events="none" class="answer"/>
+  <rect id="clicker-0" pointer-events="visible" class="clicker"/>
+  <text id="answer-1" pointer-events="none" class="answer"/>
+  <rect id="clicker-1" pointer-events="visible" class="clicker"/>
+  <text id="answer-2" pointer-events="none" class="answer"/>
+  <rect id="clicker-2" pointer-events="visible" class="clicker"/>
+  <text id="answer-3" pointer-events="none" class="answer"/>
+  <rect id="clicker-3" pointer-events="visible" class="clicker"/>
 </svg>
