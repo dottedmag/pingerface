@@ -8,6 +8,9 @@ function zeroPad(i) {
     return i;
 }
 
+const timeEl = document.getElementById("time");
+const dateEl = document.getElementById("date");
+
 let answerEls = [];
 let clickerEls = [];
 for (let i = 0; i < 4; i++) {
@@ -17,10 +20,11 @@ for (let i = 0; i < 4; i++) {
 
 const questionEl = document.getElementById("question");
 const underlayEl = document.getElementById("underlay");
-const timeEl = document.getElementById("time");
 const timeSmallEl = document.getElementById("time-small");
-const dateEl = document.getElementById("date");
 const dateSmallEl = document.getElementById("date-small");
+
+let overlayEls = [questionEl, underlayEl, timeSmallEl, dateSmallEl]
+    .concat(answerEls, clickerEls);
 
 function drawClock(date) {
     let today = date;
@@ -28,10 +32,8 @@ function drawClock(date) {
     let mins = zeroPad(today.getMinutes());
     let day = zeroPad(today.getDate());
     let month = months[today.getMonth()];
-    timeEl.text = `${hours}:${mins}`;
-    timeSmallEl.text = `${hours}:${mins}`;
-    dateEl.text = `${day} ${month}`;
-    dateSmallEl.text = `${day} ${month}`;
+    timeEl.text = timeSmallEl.text = `${hours}:${mins}`;
+    dateEl.text = dateSmallEl.text = `${day} ${month}`;
 }
 
 export class Watch {
@@ -49,25 +51,14 @@ export class Watch {
         drawClock(new Date());
 
         if (question == null) {
-            for (let i = 0; i < 4; i++) {
-                answerEls[i].style.visibility = "hidden";
-                clickerEls[i].style.visibility = "hidden";
-            }
-            underlayEl.style.visibility = "hidden";
-            questionEl.style.visibility = "hidden";
-            dateSmallEl.style.visibility = "hidden";
-            timeSmallEl.style.visibility = "hidden";
+            for (let el of overlayEls)
+                el.style.visibility = "hidden";
         } else {
-            for (let i = 0; i < 4; i++) {
-                answerEls[i].style.visibility = "visible";
+            for (let i = 0; i < 4; i++)
                 answerEls[i].text = answers[i];
-                clickerEls[i].style.visibility = "visible";
-            }
-            underlayEl.style.visibility = "visible";
-            questionEl.style.visibility = "visible";
             questionEl.text = `${question}`;
-            dateSmallEl.style.visibility = "visible";
-            timeSmallEl.style.visibility = "visible";
+            for (let el of overlayEls)
+                el.style.visibility = "visible";
         }
     }
 }
