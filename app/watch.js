@@ -56,7 +56,7 @@ export class Watch {
         } else {
             for (let i = 0; i < 4; i++)
                 answerEls[i].text = answers[i];
-            questionEl.text = `${question}`;
+            questionEl.text = question;
             for (let el of overlayEls)
                 el.style.visibility = "visible";
         }
