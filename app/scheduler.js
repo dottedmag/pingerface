@@ -26,7 +26,7 @@ export class Scheduler {
             let next = nextWakeupTime(now);
             this.interval = setTimeout(()=>{
                 this.cb();
-                setInterval(()=>this.cb(), wakeupFrequency);
+                this.interval = setInterval(()=>this.cb(), wakeupFrequency);
             }, next-now);
         }
     }
