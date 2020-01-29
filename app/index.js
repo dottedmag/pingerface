@@ -25,9 +25,8 @@ let w = new watch.Watch((id) => {
 });
 
 const reconcile = () => {
-    console.log(`reconcile enabled=${app.enabled} question=${app.question} `+
-                `correct_answer=${app.correct_answer}`);
-    if (app.question != null) {
+    console.log('reconcile '+JSON.stringify(app));
+    if (app.nquestion != null) {
         a.grab();
     } else {
         a.release();
