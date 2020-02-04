@@ -10,14 +10,14 @@ const clash = (a, n) => {
 
 const add_unique = (a, limit) => {
     let l = a.length;
-    let n = badrandint(limit);
+    let n = badrandint(0, limit);
     while (clash(a, n))
-        n = badrandint(limit);
+        n = badrandint(0, limit);
     a.push(n);
 };
 
 const sqr_question = () => {
-    let a = badrandint(32);
+    let a = badrandint(0, 32);
     let answers = [a*a];
     add_unique(answers, 1000);
     add_unique(answers, 1000);
@@ -26,7 +26,7 @@ const sqr_question = () => {
 };
 
 const sqrt_question = () => {
-    let a = badrandint(32);
+    let a = badrandint(0, 32);
     let answers = [a];
     add_unique(answers, 32);
     add_unique(answers, 32);
@@ -34,7 +34,7 @@ const sqrt_question = () => {
     return ["√"+(a*a)+"?", answers];
 };
 
-const math_question = ()=>badrandint(2) == 0 ? sqr_question() : sqrt_question();
+const math_question = ()=>badrandint(0, 2) == 0 ? sqr_question() : sqrt_question();
 
 const gen_questions = [
     ()=>["Are you awake?", ["Yes", "No", "No", "No"]],
@@ -44,9 +44,9 @@ const gen_questions = [
     ()=>["Wrote task down?", ["Yes", "No", "No", "No"]],
 ];
 
-// returns a bad random integer in [0, limit)
-function badrandint(limit) {
-    return (Math.random()*limit)|0;
+// returns a bad random integer in [from, to)
+function badrandint(from, to) {
+    return ((Math.random()*(to-from))|0)+from;
 }
 
 // returns a new position of idx in shuffled array
